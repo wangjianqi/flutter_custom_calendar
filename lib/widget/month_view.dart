@@ -8,6 +8,7 @@ import 'package:flutter_custom_calendar/utils/date_util.dart';
  * 月视图，显示整个月的日子
  */
 class MonthView extends StatefulWidget {
+  ///选中的日期
   OnCalendarSelect onCalendarSelectListener;
 
   Set<DateModel> selectedDateList; //被选中的日期
@@ -72,12 +73,14 @@ class _MonthViewState extends State<MonthView> {
     year = widget.year;
     month = widget.month;
 
+    ///初始化日历
     items = DateUtil.initCalendarForMonthView(
         year, month, DateTime.now(), DateTime.sunday,
         minSelectDate: widget.minSelectDate,
         maxSelectDate: widget.maxSelectDate,
         extraDataMap: widget.extraDataMap);
 
+    ///计算当前月份行数
     lineCount = DateUtil.getMonthViewLineCount(year, month);
 
     selectDateModel = widget.selectDateModel;
@@ -89,6 +92,7 @@ class _MonthViewState extends State<MonthView> {
     totalHeight = itemHeight * lineCount + mainSpacing * (lineCount - 1);
 
     return GestureDetector(
+      ///上下手势
         onVerticalDragStart: (DragStartDetails detail) {
           print("onHorizontalDragStart:$detail");
         },
@@ -100,10 +104,12 @@ class _MonthViewState extends State<MonthView> {
         physics: NeverScrollableScrollPhysics(),
         gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 7, mainAxisSpacing: 10),
+        ///计算个数
         itemCount: 7 * lineCount,
         itemBuilder: (context, index) {
           DateModel dateModel = items[index];
           //判断是否被选择
+          ///多选模式
           if (widget.selectMode == Constants.MODE_MULTI_SELECT) {
             if (widget.selectedDateList.contains(dateModel)) {
               dateModel.isSelected = true;
@@ -111,6 +117,7 @@ class _MonthViewState extends State<MonthView> {
               dateModel.isSelected = false;
             }
           } else {
+            ///单选模式
             if (selectDateModel == dateModel) {
               dateModel.isSelected = true;
             } else {
@@ -142,6 +149,7 @@ class _MonthViewState extends State<MonthView> {
                 widget.selectDateModel = dateModel;
                 widget.onCalendarSelectListener(dateModel);
                 setState(() {
+                  ///选中和取消
                   if (widget.selectedDateList.contains(dateModel)) {
                     widget.selectedDateList.remove(dateModel);
                   } else {
@@ -149,6 +157,7 @@ class _MonthViewState extends State<MonthView> {
                   }
                 });
               } else {
+                ///单选
                 selectDateModel = dateModel;
                 widget.selectDateModel = dateModel;
                 widget.onCalendarSelectListener(dateModel);

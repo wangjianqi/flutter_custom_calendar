@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 class Constants {
 
   //单选或者多选模式
@@ -16,6 +17,17 @@ class Constants {
     "周六",
     "周日"
   ];
+
+  static List<WeekStyle> weekStyle = [
+    WeekStyle(weekdays: "日",textStyle: TextStyle(color: Color(0xff999999),fontSize: 12)),
+    WeekStyle(weekdays: "一",textStyle: TextStyle(color: Color(0xff333333),fontSize: 12)),
+    WeekStyle(weekdays: "二",textStyle: TextStyle(color: Color(0xff333333),fontSize: 12)),
+    WeekStyle(weekdays: "三",textStyle: TextStyle(color: Color(0xff333333),fontSize: 12)),
+    WeekStyle(weekdays: "四",textStyle: TextStyle(color: Color(0xff333333),fontSize: 12)),
+    WeekStyle(weekdays: "五",textStyle: TextStyle(color: Color(0xff333333),fontSize: 12)),
+    WeekStyle(weekdays: "六",textStyle: TextStyle(color: Color(0xff999999),fontSize: 12)),
+  ];
+
 
   /**
    * 农历的月份
@@ -70,4 +82,12 @@ class Constants {
     "廿九",
     "三十"
   ];
+}
+
+class WeekStyle {
+  final String weekdays;
+  final TextStyle textStyle;
+
+  WeekStyle({this.weekdays, this.textStyle});
+
 }

@@ -32,6 +32,7 @@ class _CalendarViewWidgetState extends State<CalendarViewWidget> {
   Widget build(BuildContext context) {
     //暂时先这样写死,提前计算布局的高度,不然会出现问题:a horizontal viewport was given an unlimited amount of I/flutter ( 6759): vertical space in which to expand.
     itemHeight = MediaQuery.of(context).size.width / 7;
+    ///计算总高度
     totalHeight = itemHeight * 6 + 10 * (6 - 1);
     return Container(
       //外部可以自定义背景设置
@@ -41,6 +42,7 @@ class _CalendarViewWidgetState extends State<CalendarViewWidget> {
           /**
            * 利用const，避免每次setState都会刷新到这顶部的view
            */
+          ///周
           widget.calendarController.weekBarItemWidgetBuilder(),
           Container(
             height: totalHeight,
@@ -53,6 +55,7 @@ class _CalendarViewWidgetState extends State<CalendarViewWidget> {
                 widget.calendarController.selectDateModel =dateModel;
                 widget.calendarController.calendarSelect(dateModel);
               },
+              ///时间跨度（月份为单位）
               monthList: widget.calendarController.monthList,
               pageController: widget.calendarController.pageController,
               selectedDateList: widget.calendarController.selectedDateList,

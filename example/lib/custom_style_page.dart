@@ -18,6 +18,7 @@ class _CustomStylePageState extends State<CustomStylePage> {
 
   @override
   void initState() {
+    super.initState();
     text = "${DateTime.now().year}年${DateTime.now().month}月";
 
     controller = new CalendarController(weekBarItemWidgetBuilder: () {
@@ -73,18 +74,40 @@ class _CustomStylePageState extends State<CustomStylePage> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      floatingActionButton: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          FloatingActionButton(
+            onPressed: () {
+              controller.moveToPreviousYear();
+            },
+            tooltip: 'Increment',
+            child: Text("上年"),
+          ),
+          FloatingActionButton(
+            onPressed: () {
+              controller.moveToNextYear();
+            },
+            tooltip: 'Increment',
+            child: Text("下年"),
+          ),
+          FloatingActionButton(
+            onPressed: () {
+              final date = DateTime.now();
+              controller.moveToCalendar(date.year, date.month, date.day);
+            },
+            tooltip: 'Increment',
+            child: Text("当前"),
+          ),
+        ],
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,// This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
 
 class CustomStyleWeekBarItem extends BaseWeekBar {
-  List<String> weekList = ["一", "二", "三", "四", "五", "六", "日"];
-
+  final List<String> weekList = ["一", "二", "三", "四", "五", "六", "日"];
   @override
   Widget getWeekBarItem(int index) {
     return new Container(
@@ -96,7 +119,8 @@ class CustomStyleWeekBarItem extends BaseWeekBar {
 }
 
 class CustomStyleDayWidget extends BaseCustomDayWidget {
-  CustomStyleDayWidget(DateModel dateModel) : super(dateModel);
+  final DateModel dateModel;
+  CustomStyleDayWidget(this.dateModel) : super(dateModel);
 
   @override
   void drawNormal(DateModel dateModel, Canvas canvas, Size size) {
@@ -132,6 +156,10 @@ class CustomStyleDayWidget extends BaseCustomDayWidget {
 
     lunarTextPainter.layout(minWidth: size.width, maxWidth: size.width);
     lunarTextPainter.paint(canvas, Offset(0, size.height / 2));
+
+    ///添加底部标记
+    Paint paint = Paint()..color = Colors.redAccent;
+    canvas.drawCircle(Offset(size.width/2.0, size.height/2.0+30), 3, paint);
   }
 
   @override
@@ -165,5 +193,9 @@ class CustomStyleDayWidget extends BaseCustomDayWidget {
 
     lunarTextPainter.layout(minWidth: size.width, maxWidth: size.width);
     lunarTextPainter.paint(canvas, Offset(0, size.height / 2));
+
+    ///添加标记
+    Paint paint = Paint()..color = Colors.redAccent;
+    canvas.drawCircle(Offset(size.width/2.0, size.height/2.0+30), 3, paint);
   }
 }

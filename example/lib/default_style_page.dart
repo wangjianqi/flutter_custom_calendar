@@ -17,10 +17,13 @@ class _DefaultStylePageState extends State<DefaultStylePage> {
 
   @override
   void initState() {
+    super.initState();
     text = "${DateTime.now().year}年${DateTime.now().month}月";
 
     controller = new CalendarController();
+    controller.extraDataMap = {DateTime.now():true};
 
+    ///监听当前日期
     controller.addMonthChangeListener(
       (year, month) {
         setState(() {
@@ -29,6 +32,7 @@ class _DefaultStylePageState extends State<DefaultStylePage> {
       },
     );
 
+    ///时间变化监听
     controller.addOnCalendarSelectListener((dateModel) {
       //刷新选择的时间
       setState(() {});
@@ -50,12 +54,14 @@ class _DefaultStylePageState extends State<DefaultStylePage> {
                 new IconButton(
                     icon: Icon(Icons.navigate_before),
                     onPressed: () {
+                      ///上个月
                       controller.moveToPreviousMonth();
                     }),
                 new Text(text),
                 new IconButton(
                     icon: Icon(Icons.navigate_next),
                     onPressed: () {
+                      ///下一个月
                       controller.moveToNextMonth();
                     }),
               ],
@@ -64,6 +70,7 @@ class _DefaultStylePageState extends State<DefaultStylePage> {
               calendarController: controller,
             ),
             new Text(
+              ///选中的日期
                 "单选模式\n选中的时间:\n${controller.getSingleSelectCalendar().toString()}"),
           ],
         ),

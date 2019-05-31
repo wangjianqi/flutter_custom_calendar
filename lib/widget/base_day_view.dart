@@ -6,7 +6,7 @@ import 'package:flutter_custom_calendar/model/date_model.dart';
  * 通过canvas自定义item，只需实现相关的方法就可以
  */
 abstract class BaseCustomDayWidget extends StatelessWidget {
-  DateModel dateModel;
+  final DateModel dateModel;
 
   BaseCustomDayWidget(
     this.dateModel,
@@ -27,8 +27,10 @@ abstract class BaseCustomDayWidget extends StatelessWidget {
     );
   }
 
+  ///正常样式
   void drawNormal(DateModel dateModel, Canvas canvas, Size size);
 
+  ///选中样式
   void drawSelected(DateModel dateModel, Canvas canvas, Size size);
 }
 

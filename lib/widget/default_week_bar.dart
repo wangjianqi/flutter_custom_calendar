@@ -43,12 +43,18 @@ class DefaultWeekBar extends BaseWeekBar {
 
   @override
   Widget getWeekBarItem(int index) {
+    final weekday = Constants.weekStyle[index];
     return new Container(
-      height: 40,
+      height: 36,
+      color: Colors.grey[100],
       alignment: Alignment.center,
       child: new Text(
-        Constants.WEEK_LIST[index],
-        style: topWeekTextStyle,
+//        Constants.WEEK_LIST[index],
+      // FIXME  周日放到第一个
+        weekday.weekdays,
+        style: weekday.textStyle,
+        ///周标题样式
+//        style: topWeekTextStyle,
       ),
     );
   }

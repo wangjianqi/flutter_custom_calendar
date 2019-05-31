@@ -15,6 +15,7 @@ abstract class BaseWeekBar extends StatelessWidget {
     );
   }
 
+  ///需要实现方法
   Widget getWeekBarItem(int index);
 
   List<Widget> getWeekDayWidget() {

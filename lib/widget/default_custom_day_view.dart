@@ -15,6 +15,7 @@ class DefaultCustomDayWidget extends BaseCustomDayWidget {
     defaultDrawNormal(dateModel, canvas, size);
   }
 
+  ///选中样式
   @override
   void drawSelected(DateModel dateModel, Canvas canvas, Size size) {
     defaultDrawSelected(dateModel, canvas, size);
@@ -69,6 +70,7 @@ class DefaultCustomDayWidget extends BaseCustomDayWidget {
 /**
  * 默认的样式
  */
+const dotMaxY = 25;
 void defaultDrawNormal(DateModel dateModel, Canvas canvas, Size size) {
   //顶部的文字
   TextPainter dayTextPainter = new TextPainter()
@@ -88,6 +90,21 @@ void defaultDrawNormal(DateModel dateModel, Canvas canvas, Size size) {
 
   lunarTextPainter.layout(minWidth: size.width, maxWidth: size.width);
   lunarTextPainter.paint(canvas, Offset(0, size.height / 2));
+
+  Paint paint = Paint()
+    ..color = Color(0xffcccccc);
+  ///半径
+  canvas.drawCircle(Offset(size.width/2, size.height/2+dotMaxY), 3, paint);
+  if (dateModel.extraData != null) {
+    print("========${dateModel.extraData}");
+//    if (dateModel.extraData as Map<DateTime,bool> ) {
+//      final isShowDot = dateModel.extraData[DateTime.now()];
+//      if (isShowDot != null && isShowDot == true) {
+//        ///需要绘制小圆点
+//      }
+  } else {
+    print("=======null");
+  }
 }
 
 /**
@@ -120,7 +137,13 @@ void defaultDrawSelected(DateModel dateModel, Canvas canvas, Size size) {
     ..text = new TextSpan(text: dateModel.lunarString, style: lunarTextStyle)
     ..textDirection = TextDirection.ltr
     ..textAlign = TextAlign.center;
-
+  ///文字布局
   lunarTextPainter.layout(minWidth: size.width, maxWidth: size.width);
   lunarTextPainter.paint(canvas, Offset(0, size.height / 2));
+
+  ///需要绘制小圆点
+  Paint paint = Paint()
+    ..color = Color(0xffcccccc);
+  ///半径
+  canvas.drawCircle(Offset(size.width/2, size.height/2+dotMaxY), 3, paint);
 }

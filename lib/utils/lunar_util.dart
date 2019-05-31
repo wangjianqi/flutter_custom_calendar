@@ -761,9 +761,11 @@ class LunarUtil {
     int year = dateModel.year;
     int month = dateModel.month;
     int day = dateModel.day;
-
+    ///计算是否是周末
     dateModel.isWeekend = DateUtil.isWeekend(new DateTime(year, month, day));
+    ///是否是闰年
     dateModel.isLeapYear = DateUtil.isLeapYear(year);
+    ///是否是今天
     dateModel.isCurrentDay = DateUtil.isCurrentDay(year, month, day);
 
     List<int> lunar = LunarUtil.solarToLunar(year, month, day);
@@ -812,6 +814,7 @@ class LunarUtil {
    */
   static List<int> solarToLunar(int year, int month, int day) {
     List<int> lunarInt = new List(4);
+    ///1887年
     int index = year - SOLAR[0];
     int data = (year << 9) | (month << 5) | (day);
     int solar11;

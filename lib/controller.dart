@@ -60,13 +60,20 @@ class CalendarController {
 
   CalendarController(
       {int selectMode = Constants.MODE_SINGLE_SELECT,
+        ///默认天widget
       DayWidgetBuilder dayWidgetBuilder = defaultCustomDayWidget,
       WeekBarItemWidgetBuilder weekBarItemWidgetBuilder = defaultWeekBarWidget,
+        ///开始年份
       int minYear = 1971,
+        ///结束年份
       int maxYear = 2055,
+        ///开始月份
       int minYearMonth = 1,
+        ///结束月份
       int maxYearMonth = 12,
+        ///当前年
       int nowYear = -1,
+        ///当前月
       int nowMonth = -1,
       int minSelectYear = 1971,
       int minSelectMonth = 1,
@@ -110,6 +117,7 @@ class CalendarController {
     monthList.clear();
     for (int i = minYear; i <= maxYear; i++) {
       for (int j = 1; j <= 12; j++) {
+        ///防止超出时间限制
         if (i == minYear && j < minYearMonth) {
           continue;
         }
@@ -128,10 +136,13 @@ class CalendarController {
         if (i == nowYear && j == nowMonth) {
           initialPage = nowMonthIndex;
         }
+        ///添加月份
         monthList.add(dateModel);
+        ///当前月份索引
         nowMonthIndex++;
       }
     }
+    ///初始化当前月份
     this.pageController = new PageController(initialPage: initialPage);
   }
 

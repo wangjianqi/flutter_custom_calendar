@@ -92,9 +92,8 @@ class DateUtil {
    */
   static int getIndexOfFirstDayInMonth(DateTime dateTime) {
     DateTime firstDayOfMonth = new DateTime(dateTime.year, dateTime.month, 1);
-
+    ///计算是周几
     int week = firstDayOfMonth.weekday;
-
     return week;
   }
 
@@ -103,6 +102,7 @@ class DateUtil {
       {DateModel minSelectDate,
       DateModel maxSelectDate,
       Map<DateTime, Object> extraDataMap}) {
+    ///周几开始
     weekStart = DateTime.monday;
     //获取月视图其实偏移量
     int mPreDiff = getIndexOfFirstDayInMonth(new DateTime(year, month));
@@ -113,17 +113,20 @@ class DateUtil {
 
     List<DateModel> result = new List();
 
+    ///6(行数)*7(周)
     int size = 42;
 
+    ///当前月份第一天
     DateTime firstDayOfMonth = new DateTime(year, month, 1);
+    ///当前月份最后一天
     DateTime lastDayOfMonth = new DateTime(year, month, monthDayCount);
 
     for (int i = 0; i < size; i++) {
       DateTime temp;
       DateModel dateModel;
       if (i < mPreDiff - 1) {
+        ///计算多少天之前的时间
         temp = firstDayOfMonth.subtract(Duration(days: mPreDiff - i - 1));
-
         dateModel = DateModel.fromDateTime(temp);
         //这个上一月的几天
       } else if (i >= monthDayCount + (mPreDiff - 1)) {
@@ -162,14 +165,17 @@ class DateUtil {
    * 月的行数
    */
   static int getMonthViewLineCount(int year, int month) {
+    ///当前月第一天
     DateTime firstDayOfMonth = new DateTime(year, month, 1);
+    ///计算当前月份天数
     int monthDayCount = getMonthDaysCount(year, month);
 //    DateTime lastDayOfMonth = new DateTime(year, month, monthDayCount);
-
+    ///计算周几
     int preIndex = firstDayOfMonth.weekday - 1;
 //    int lastIndex = lastDayOfMonth.weekday;
 
     print("$year年$month月:有${((preIndex + monthDayCount) / 7).toInt() + 1}行");
+    ///计算行数
     return ((preIndex + monthDayCount) / 7).toInt() + 1;
   }
 }
