@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_calendar/flutter_custom_calendar.dart';
 
-
 class CustomStylePage extends StatefulWidget {
   CustomStylePage({Key key, this.title}) : super(key: key);
 
@@ -77,31 +76,34 @@ class _CustomStylePageState extends State<CustomStylePage> {
       floatingActionButton: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
+          ///floatingActionButton只能有一个否则会报错
           FloatingActionButton(
+            onPressed: () {},
+            child: Icon(Icons.add),
+          ),
+          RaisedButton(
             onPressed: () {
               controller.moveToPreviousYear();
             },
-            tooltip: 'Increment',
             child: Text("上年"),
           ),
-          FloatingActionButton(
+          RaisedButton(
             onPressed: () {
               controller.moveToNextYear();
             },
-            tooltip: 'Increment',
             child: Text("下年"),
           ),
-          FloatingActionButton(
+          RaisedButton(
             onPressed: () {
               final date = DateTime.now();
               controller.moveToCalendar(date.year, date.month, date.day);
             },
-            tooltip: 'Increment',
             child: Text("当前"),
           ),
         ],
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,// This trailing comma makes auto-formatting nicer for build methods.
+      floatingActionButtonLocation: FloatingActionButtonLocation
+          .centerFloat, // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
@@ -159,7 +161,8 @@ class CustomStyleDayWidget extends BaseCustomDayWidget {
 
     ///添加底部标记
     Paint paint = Paint()..color = Colors.redAccent;
-    canvas.drawCircle(Offset(size.width/2.0, size.height/2.0+30), 3, paint);
+    canvas.drawCircle(
+        Offset(size.width / 2.0, size.height / 2.0 + 30), 3, paint);
   }
 
   @override
@@ -196,6 +199,7 @@ class CustomStyleDayWidget extends BaseCustomDayWidget {
 
     ///添加标记
     Paint paint = Paint()..color = Colors.redAccent;
-    canvas.drawCircle(Offset(size.width/2.0, size.height/2.0+30), 3, paint);
+    canvas.drawCircle(
+        Offset(size.width / 2.0, size.height / 2.0 + 30), 3, paint);
   }
 }
