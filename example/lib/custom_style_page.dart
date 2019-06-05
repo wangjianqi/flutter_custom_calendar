@@ -126,6 +126,7 @@ class CustomStyleDayWidget extends BaseCustomDayWidget {
 
   @override
   void drawNormal(DateModel dateModel, Canvas canvas, Size size) {
+    ///是否是周末
     bool isWeekend = dateModel.isWeekend;
     bool isInRange = dateModel.isInRange;
 
